@@ -131,6 +131,97 @@ body {
   66%  { transform: translate(-30px, 25px) scale(0.95) rotate(-4deg); }
 }
 
+/* ---------- heading ghosts (dark theme only) ---------- */
+.hero-title .tl {
+  position: relative;
+  display: inline-block;
+}
+.hero-title .tl-hide {
+  isolation: isolate;
+}
+
+.tghost {
+  position: absolute;
+  width: 0.55em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation-play-state: paused;
+  filter: drop-shadow(0 3px 10px rgba(150, 130, 255, 0.55));
+}
+.tghost svg { width: 100%; height: auto; display: block; }
+.tghost .gbody { fill: #f6f4ff; opacity: 0.95; }
+.tghost .geye,
+.tghost .gmouth { fill: #2a1b4a; }
+.tghost .gsmile {
+  fill: none;
+  stroke: #2a1b4a;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tghost .gtongue { fill: #ff7aa8; }
+
+[data-theme="dark"] .tghost {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* P — hanging / swinging from the letter */
+.tg-hang {
+  top: -0.05em;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: 50% -0.15em;
+  animation: tgHang 2.6s ease-in-out infinite;
+}
+@keyframes tgHang {
+  0%, 100% { transform: translateX(-50%) rotate(-14deg); }
+  50% { transform: translateX(-50%) rotate(14deg); }
+}
+
+/* V — jumping / bouncing on the letter */
+.tg-jump {
+  bottom: 0.1em;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: tgJump 1.5s ease-in-out infinite;
+}
+@keyframes tgJump {
+  0%, 100% { transform: translateX(-50%) translateY(0) scaleY(1); }
+  25% { transform: translateX(-50%) translateY(-0.5em) scaleY(1.08) scaleX(0.95); }
+  45% { transform: translateX(-50%) translateY(0) scaleY(0.88) scaleX(1.05); }
+  65% { transform: translateX(-50%) translateY(-0.22em) scaleY(1.04); }
+}
+
+/* l — peek-a-boo from behind the letter */
+.tg-peek {
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -50%) scale(0.75);
+  animation: tgPeek 3.8s ease-in-out infinite;
+}
+@keyframes tgPeek {
+  0%, 62%, 100% { transform: translate(-75%, -50%) scale(0.7); }
+  68%, 82% { transform: translate(20%, -58%) scale(1.05); }
+}
+
+/* t — sitting on top, wiggling */
+.tg-sit {
+  top: -0.52em;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: tgSit 2.1s ease-in-out infinite;
+}
+@keyframes tgSit {
+  0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+  20% { transform: translateX(-50%) translateY(-0.06em) rotate(6deg); }
+  40% { transform: translateX(-50%) rotate(-4deg); }
+  60% { transform: translateX(-50%) translateY(-0.04em) rotate(7deg); }
+  80% { transform: translateX(-50%) rotate(-3deg); }
+}
+
 /* ---------- theme toggle ---------- */
 .theme-toggle {
   position: fixed;
@@ -197,9 +288,11 @@ body {
   margin: 0 0 12px;
   font-weight: 700;
   letter-spacing: -0.02em;
+  overflow: visible;
 }
 
-.grad {
+.grad,
+.grad .tl {
   background: linear-gradient(100deg, var(--grad-a), var(--grad-b) 45%, var(--grad-c) 70%, var(--grad-a));
   background-size: 220% auto;
   -webkit-background-clip: text;
@@ -334,6 +427,18 @@ body {
 }
 .card.open { border-color: rgba(179, 136, 255, 0.6); box-shadow: var(--shadow); }
 
+/* An open card breaks out to ~80% of the viewport for more reading room.
+   Only one card can be open at a time, so closing it (or opening another)
+   reverts automatically. Gated to widths where 80vw is actually wider than
+   the 760px content column, so it never shrinks cards on smaller screens. */
+@media (min-width: 960px) {
+  .card.open {
+    width: 80vw;
+    max-width: 80vw;
+    margin-left: calc(50% - 40vw);
+  }
+}
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
@@ -397,11 +502,73 @@ body {
 .card.open .card-body { grid-template-rows: 1fr; }
 .card-body-inner { overflow: hidden; }
 
+.prompt-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+  padding: 0 20px 18px;
+}
+
 .prompt-box {
-  margin: 0 20px 18px;
+  margin: 0;
+  min-width: 0;
   background: var(--code-bg);
   border: 1px solid var(--card-brd);
   border-radius: 12px;
+}
+
+/* ---------- use-case side panel ---------- */
+.usecase-box {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--card-brd);
+  border-radius: 12px;
+  padding: 16px 16px 16px 18px;
+  background:
+    linear-gradient(180deg, rgba(179, 136, 255, 0.10), rgba(179, 136, 255, 0.02));
+  box-shadow: inset 0 0 40px -30px var(--grad-b);
+  animation: usecaseIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* gradient accent bar down the left edge */
+.usecase-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--grad-a), var(--grad-b), var(--grad-c));
+}
+@keyframes usecaseIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.usecase-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  background: linear-gradient(100deg, var(--grad-a), var(--grad-b) 60%, var(--grad-c));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.usecase-head svg {
+  width: 16px; height: 16px; flex: none;
+  fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.usecase-text {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.92;
 }
 .prompt-text {
   margin: 0;
@@ -512,15 +679,20 @@ body {
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+@media (max-width: 680px) {
+  .prompt-layout { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 560px) {
   .hero { padding-top: 44px; }
   .search-kbd { display: none; }
   .card-head { padding: 16px; gap: 10px; }
   .tag { display: none; }
   .theme-toggle { top: 12px; right: 12px; width: 42px; height: 42px; }
+  .prompt-layout { padding: 0 16px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora, .orb, .card, .grad, .hero, .hero-badge, .empty-emoji { animation: none !important; }
+  .aurora, .orb, .card, .grad, .hero, .hero-badge, .empty-emoji, .usecase-box, .tghost { animation: none !important; }
   * { transition: none !important; }
 }

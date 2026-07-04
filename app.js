@@ -52,14 +52,16 @@
     const title = fuzzy(query, p.title);
     const category = fuzzy(query, p.category);
     const tags = fuzzy(query, (p.tags || []).join(" "));
+    const useCase = fuzzy(query, p.useCase || "");
     const body = fuzzy(query, p.prompt);
 
-    if (!title && !category && !tags && !body) return null;
+    if (!title && !category && !tags && !useCase && !body) return null;
 
     const score =
       (title ? title.score * 6 : 0) +
       (category ? category.score * 3 : 0) +
       (tags ? tags.score * 4 : 0) +
+      (useCase ? useCase.score * 2 : 0) +
       (body ? body.score * 1 : 0);
 
     return { score, titleIndices: title ? title.indices : [] };
@@ -140,19 +142,35 @@
         </button>
         <div class="card-body">
           <div class="card-body-inner">
-            <div class="prompt-box">
-              <pre class="prompt-text">${escapeHtml(p.prompt)}</pre>
-              <div class="prompt-actions">
-                <span class="prompt-meta">${lineCount} line${lineCount === 1 ? "" : "s"}</span>
-                <button class="copy-btn" data-copy="${escapeHtml(p.id)}">
-                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
-                  Copy prompt
-                </button>
+            <div class="prompt-layout">
+              <div class="prompt-box">
+                <pre class="prompt-text">${escapeHtml(p.prompt)}</pre>
+                <div class="prompt-actions">
+                  <span class="prompt-meta">${lineCount} line${lineCount === 1 ? "" : "s"}</span>
+                  <button class="copy-btn" data-copy="${escapeHtml(p.id)}">
+                    <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+                    Copy prompt
+                  </button>
+                </div>
               </div>
+              ${useCaseHtml(p.useCase)}
             </div>
           </div>
         </div>
       </article>`;
+  }
+
+  // Fancy side panel explaining when to use a prompt. Rendered only if present.
+  function useCaseHtml(useCase) {
+    if (!useCase) return "";
+    return `
+      <aside class="usecase-box">
+        <div class="usecase-head">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.8.7 1 1.2 1 2.5h6c0-1.3.2-1.8 1-2.5A6 6 0 0012 3z"/></svg>
+          When to use
+        </div>
+        <p class="usecase-text">${escapeHtml(useCase)}</p>
+      </aside>`;
   }
 
   /* ---------------- interactions ---------------- */
