@@ -233,6 +233,101 @@
     toastTimer = setTimeout(() => els.toast.classList.remove("show"), 1900);
   }
 
+  /* ---------------- edge ghosts (dark theme only) ---------------- */
+  const MAX_GHOSTS = 3;
+  const CYCLE_MS = 6000;
+  const GHOST_EDGES = ["top", "bottom", "left", "right"];
+  const GHOST_MOODS = ["smile", "angry", "neutral"];
+  const GHOST_BODY =
+    '<path class="gbody" d="M8 32 A24 24 0 0 1 56 32 L56 62 q-4.8 8 -9.6 0 q-4.8 8 -9.6 0 q-4.8 8 -9.6 0 q-4.8 8 -9.6 0 q-4.8 8 -9.6 0 Z"/>';
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let ghostTimers = [];
+  let ghostActive = 0;
+  let ghostContainer = null;
+
+  function ghostFace(mood) {
+    if (mood === "smile") {
+      return (
+        '<circle class="geye" cx="24" cy="30" r="3.4"/>' +
+        '<circle class="geye" cx="40" cy="30" r="3.4"/>' +
+        '<path class="gsmile" d="M25 39 Q32 46 39 39"/>'
+      );
+    }
+    if (mood === "angry") {
+      return (
+        '<path class="gbrow" d="M18 24 L28 28"/>' +
+        '<path class="gbrow" d="M46 24 L36 28"/>' +
+        '<circle class="geye" cx="24" cy="31" r="3.2"/>' +
+        '<circle class="geye" cx="40" cy="31" r="3.2"/>' +
+        '<path class="gsmile" d="M26 44 Q32 40 38 44"/>'
+      );
+    }
+    return (
+      '<circle class="geye" cx="24" cy="29" r="3.2"/>' +
+      '<circle class="geye" cx="40" cy="29" r="3.2"/>' +
+      '<path class="gline" d="M26 43 H38"/>'
+    );
+  }
+
+  function ghostSvg(mood) {
+    return `<svg viewBox="0 0 64 74" xmlns="http://www.w3.org/2000/svg">${GHOST_BODY}${ghostFace(mood)}</svg>`;
+  }
+
+  function stopEdgeGhosts() {
+    ghostTimers.forEach(clearTimeout);
+    ghostTimers = [];
+    if (ghostContainer) ghostContainer.innerHTML = "";
+    ghostActive = 0;
+  }
+
+  function scheduleGhostSpawn(delay) {
+    const id = setTimeout(() => {
+      ghostTimers = ghostTimers.filter((t) => t !== id);
+      if (currentTheme() !== "dark" || !ghostContainer) return;
+      spawnEdgeGhost();
+    }, delay);
+    ghostTimers.push(id);
+  }
+
+  function spawnEdgeGhost() {
+    if (!ghostContainer || currentTheme() !== "dark" || ghostActive >= MAX_GHOSTS) return;
+
+    const edge = GHOST_EDGES[Math.floor(Math.random() * GHOST_EDGES.length)];
+    const mood = GHOST_MOODS[Math.floor(Math.random() * GHOST_MOODS.length)];
+    const pos = 8 + Math.random() * 84;
+
+    const el = document.createElement("div");
+    el.className = `edge-ghost edge-ghost--${edge} edge-ghost--${mood}`;
+    if (edge === "top" || edge === "bottom") el.style.setProperty("--x", `${pos}%`);
+    else el.style.setProperty("--y", `${pos}%`);
+    el.innerHTML = ghostSvg(mood);
+    ghostContainer.appendChild(el);
+    ghostActive += 1;
+
+    let done = false;
+    const cleanup = () => {
+      if (done) return;
+      done = true;
+      el.remove();
+      ghostActive = Math.max(0, ghostActive - 1);
+      if (currentTheme() === "dark") scheduleGhostSpawn(300 + Math.random() * 500);
+    };
+
+    el.addEventListener("animationend", cleanup, { once: true });
+    setTimeout(cleanup, CYCLE_MS + 200);
+  }
+
+  function startEdgeGhosts() {
+    if (reducedMotion) return;
+    ghostContainer = document.getElementById("edge-ghosts");
+    if (!ghostContainer || currentTheme() !== "dark") return;
+    stopEdgeGhosts();
+    scheduleGhostSpawn(0);
+    scheduleGhostSpawn(1500);
+    scheduleGhostSpawn(3000);
+  }
+
   /* ---------------- theme ---------------- */
   const THEME_KEY = "promptvault-theme";
   function currentTheme() {
@@ -245,6 +340,8 @@
     } catch (e) {
       /* storage may be unavailable (private mode / file://) */
     }
+    if (t === "dark") startEdgeGhosts();
+    else stopEdgeGhosts();
   }
   function toggleTheme() {
     setTheme(currentTheme() === "light" ? "dark" : "light");
@@ -293,4 +390,5 @@
   renderChips();
   render();
   els.search.focus();
+  if (currentTheme() === "dark") startEdgeGhosts();
 })();
