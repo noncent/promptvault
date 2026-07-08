@@ -644,6 +644,31 @@ body {
   color: var(--muted);
   font-size: 13px;
 }
+.disclaimer {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  padding: 16px 18px;
+  text-align: left;
+  background: var(--subtle);
+  border: 1px solid var(--card-brd);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.disclaimer strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.disclaimer p {
+  margin: 0;
+  color: var(--muted);
+}
 .site-footer code {
   background: var(--subtle);
   padding: 2px 7px;
