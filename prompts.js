@@ -2094,6 +2094,515 @@ Analyse, consolidate, optimise, restructure and professionally transform the doc
 
   /* ===================== Testing ===================== */
   {
+    id: "qa-excel-dashboard",
+    title: "QA Issue Analysis, Grouping & Dashboard from Excel",
+    category: "Testing",
+    tags: ["qa", "excel", "dashboard", "defects", "bugs", "grouping", "severity", "go-live", "charts", "reporting", "test manager"],
+    useCase: "Use when you have one or more Excel files with QA issues across multiple sheets/tabs and need them consolidated, categorised, and turned into a dashboard-style report with charts, KPIs, go-live readiness, and an action plan.",
+    prompt: `# MASTER PROMPT: QA ISSUE ANALYSIS, GROUPING & DASHBOARD CREATION FROM EXCEL
+
+You are a Senior QA Analyst, Test Manager, Business Analyst, Product Owner and Dashboard Reporting Expert.
+
+## Objective
+
+Analyse QA issue data provided in one or more Excel files. The Excel may contain multiple sheets/tabs shared by different QA testers.
+
+Your task is to consolidate, clean, categorise, group and convert the QA findings into a professional dashboard-style report with charts, tables and executive insights.
+
+Do not simply list the issues.
+
+Analyse the complete data and create a meaningful QA status dashboard.
+
+---
+
+# Input
+
+I will upload one or more Excel files containing QA issues.
+
+The Excel may include multiple tabs such as:
+
+- QA1
+- QA2
+- QA3
+- Functional Testing
+- UI Testing
+- Regression Testing
+- Mobile Testing
+- Browser Testing
+- Bugs
+- Defects
+- Open Issues
+- Closed Issues
+
+Column names may not be consistent across sheets.
+
+Common columns may include:
+
+- Issue ID
+- Bug ID
+- Module
+- Page
+- Feature
+- Functionality
+- Issue Description
+- Steps to Reproduce
+- Expected Result
+- Actual Result
+- Severity
+- Priority
+- Status
+- Assigned To
+- Reported By
+- QA Owner
+- Developer
+- Environment
+- Browser
+- Device
+- Date Reported
+- Fixed Date
+- Verified Date
+- Remarks
+- Screenshot Link
+
+---
+
+# Step 1: Data Consolidation
+
+Read all sheets from the Excel file.
+
+Consolidate all QA issues into one master issue register.
+
+Normalise column names where required.
+
+If columns differ across sheets, map similar columns logically.
+
+Examples:
+
+- Bug ID / Issue ID / Defect ID → Issue ID
+- Severity / Impact → Severity
+- Priority / Urgency → Priority
+- Current Status / Bug Status / Status → Status
+- Module / Area / Page / Feature → Module or Feature Area
+
+If any important column is missing, create it as "Not Available".
+
+---
+
+# Step 2: Data Cleaning
+
+Clean the data before analysis.
+
+Perform the following:
+
+- Remove blank rows
+- Remove duplicate issues where possible
+- Standardise status values
+- Standardise severity values
+- Standardise priority values
+- Standardise module names
+- Standardise tester names
+- Trim extra spaces
+- Correct obvious spelling inconsistencies
+
+---
+
+# Step 3: Status Standardisation
+
+Group all issue statuses into standard buckets.
+
+Use this mapping:
+
+| Raw Status Examples | Standard Status |
+|---|---|
+| Open, New, Raised, Created | Open |
+| In Progress, WIP, Under Fix, Assigned | In Progress |
+| Fixed, Resolved, Done | Fixed |
+| Closed, Completed, Accepted | Closed |
+| Reopened, Re-opened | Reopened |
+| Pending, On Hold, Waiting | Pending |
+| Not Verified, Yet to Verify, To Verify | Not Verified |
+| Verified, QA Passed | Verified |
+| Rejected, Invalid, Duplicate, Not a Bug | Rejected |
+
+If status is unclear, mark it as "Unclear".
+
+---
+
+# Step 4: Severity and Priority Standardisation
+
+Standardise severity into:
+
+- Critical
+- High
+- Medium
+- Low
+- Cosmetic
+- Unclassified
+
+Standardise priority into:
+
+- P1
+- P2
+- P3
+- P4
+- Unclassified
+
+If severity or priority is missing, infer only if the issue description clearly supports it. Otherwise mark as "Unclassified".
+
+---
+
+# Step 5: Issue Categorisation
+
+Categorise each issue into one of the following groups:
+
+| Category | Meaning |
+|---|---|
+| UI / UX | Layout, alignment, spacing, colours, fonts, responsiveness, design mismatch |
+| Functional | Feature not working, incorrect flow, broken logic, missing validation |
+| Content | Text, spelling, grammar, wrong label, missing content |
+| Performance | Slow page, timeout, loading delay, heavy response |
+| Integration | API, third-party service, payment, CRM, backend dependency issues |
+| Browser Compatibility | Browser-specific issue |
+| Mobile / Responsive | Mobile layout, tablet, device-specific issues |
+| Security | Authentication, access, data exposure, permission issue |
+| Data Issue | Wrong data, missing data, incorrect mapping |
+| Accessibility | Keyboard, screen reader, contrast, WCAG issue |
+| Analytics / Tracking | Event, tag, GTM, GA, Adobe tracking issue |
+| Environment / Deployment | Build, cache, release, deployment, environment mismatch |
+| Regression | Earlier working feature broken after release |
+| Other | Anything not covered above |
+
+---
+
+# Step 6: Dashboard Metrics
+
+Create a dashboard summary with the following KPIs:
+
+## Overall QA Summary
+
+| Metric | Count |
+|---|---|
+| Total Issues |
+| Open Issues |
+| Closed Issues |
+| In Progress Issues |
+| Fixed but Not Verified |
+| Reopened Issues |
+| Pending Issues |
+| Critical Issues |
+| High Severity Issues |
+| UI / UX Issues |
+| Functional Issues |
+| Duplicate / Rejected Issues |
+
+---
+
+# Step 7: Graphical Dashboard Requirements
+
+Create visual charts for:
+
+## 1. Status Distribution
+Chart type: Pie chart or donut chart  
+Show issue count by:
+
+- Open
+- In Progress
+- Fixed
+- Closed
+- Reopened
+- Pending
+- Not Verified
+- Rejected
+
+## 2. Severity Distribution
+Chart type: Bar chart  
+Show count by:
+
+- Critical
+- High
+- Medium
+- Low
+- Cosmetic
+- Unclassified
+
+## 3. Priority Distribution
+Chart type: Bar chart  
+Show count by:
+
+- P1
+- P2
+- P3
+- P4
+- Unclassified
+
+## 4. Category Distribution
+Chart type: Horizontal bar chart  
+Show count by:
+
+- UI / UX
+- Functional
+- Content
+- Performance
+- Integration
+- Mobile / Responsive
+- Browser Compatibility
+- Security
+- Data Issue
+- Accessibility
+- Analytics / Tracking
+- Environment / Deployment
+- Regression
+- Other
+
+## 5. Module-wise Issue Count
+Chart type: Bar chart  
+Show top modules/features/pages with highest number of issues.
+
+## 6. QA Tester-wise Issue Count
+Chart type: Bar chart  
+Show issue count by QA tester/reporter.
+
+## 7. Critical and High Open Issues
+Chart type: Table or heatmap  
+Show only issues where:
+
+- Severity = Critical or High
+- Status is not Closed or Verified
+
+Columns:
+
+| Issue ID | Module | Issue Summary | Severity | Priority | Status | Owner | Remarks |
+
+---
+
+# Step 8: Grouped Analysis
+
+Create grouped tables for:
+
+## A. Issues by Status
+
+| Status | Count | Percentage | Key Observation |
+
+## B. Issues by Severity
+
+| Severity | Count | Percentage | Business Impact |
+
+## C. Issues by Category
+
+| Category | Count | Percentage | Interpretation |
+
+## D. Issues by Module
+
+| Module / Page / Feature | Total Issues | Critical | High | Open | Closed | Risk Level |
+
+## E. Critical and High Alert Issues
+
+| Issue ID | Module | Issue Description | Severity | Status | Owner | Recommended Action |
+
+## F. UI / UX Issues
+
+| Issue ID | Page / Module | Issue Description | Severity | Device / Browser | Status |
+
+## G. Functional Issues
+
+| Issue ID | Feature / Module | Issue Description | Severity | Status | Owner |
+
+## H. Not Verified / Pending Verification
+
+| Issue ID | Module | Issue Description | Fixed By | Status | QA Owner | Pending Since |
+
+---
+
+# Step 9: Executive Summary
+
+Create an executive summary covering:
+
+- Total QA issues analysed
+- Overall health of the website
+- Number of open issues
+- Number of critical/high issues
+- Major problem areas
+- Modules with highest defect concentration
+- UI vs Functional issue ratio
+- Testing confidence level
+- Go-live readiness view
+- Key blockers
+- Recommended next steps
+
+Use clear business language.
+
+Do not write long paragraphs. Use crisp bullets.
+
+---
+
+# Step 10: Go-Live Readiness Assessment
+
+Classify readiness as one of:
+
+- Ready for Go-Live
+- Ready with Minor Risks
+- Conditional Go-Live
+- Not Recommended for Go-Live
+
+Decision criteria:
+
+| Condition | Recommendation |
+|---|---|
+| No Critical open issues and very few High issues | Ready for Go-Live |
+| No Critical issues but some High/Medium open issues | Ready with Minor Risks |
+| High issues open but workaround exists | Conditional Go-Live |
+| Critical issues open or core functionality broken | Not Recommended for Go-Live |
+
+Provide reason clearly.
+
+---
+
+# Step 11: Risk View
+
+Create a risk summary:
+
+| Risk Area | Issue Count | Severity | Business Impact | Recommended Action |
+
+Risk areas may include:
+
+- Customer journey blocking
+- Broken forms
+- Payment / lead flow issues
+- Mobile responsiveness
+- Browser compatibility
+- UI inconsistency
+- Content accuracy
+- Backend/API dependency
+- Analytics missing
+- Performance degradation
+
+---
+
+# Step 12: Action Plan
+
+Create a prioritised action plan.
+
+| Priority | Action Item | Owner | Target | Remarks |
+
+Group actions into:
+
+## Immediate Fix Required
+
+Critical and High open issues.
+
+## QA Verification Required
+
+Fixed but not verified issues.
+
+## Product / Business Review Required
+
+Issues needing business clarification.
+
+## UI Polish Required
+
+Cosmetic and UI/UX issues.
+
+## Regression Required
+
+Areas needing retesting after fixes.
+
+---
+
+# Step 13: Output Format
+
+Produce the final output in the following format:
+
+## 1. Executive Summary
+
+## 2. QA Dashboard Snapshot
+
+## 3. Status Distribution
+
+## 4. Severity Distribution
+
+## 5. Priority Distribution
+
+## 6. Category-wise Issue Analysis
+
+## 7. Module-wise Issue Analysis
+
+## 8. QA Tester-wise Analysis
+
+## 9. Critical and High Alert Issues
+
+## 10. UI / UX Issue Summary
+
+## 11. Functional Issue Summary
+
+## 12. Pending / Not Verified Issues
+
+## 13. Risk Summary
+
+## 14. Go-Live Readiness
+
+## 15. Recommended Action Plan
+
+## 16. Detailed Consolidated Issue Register
+
+---
+
+# Visualisation Instruction
+
+Where possible, generate charts and graphs.
+
+Preferred charts:
+
+- Pie chart for status
+- Bar chart for severity
+- Bar chart for priority
+- Horizontal bar chart for category
+- Bar chart for module-wise issue count
+- Heatmap/table for critical and high issues
+
+If charts cannot be generated directly, provide chart-ready tables that can be copied into PowerPoint, Excel or dashboard tools.
+
+---
+
+# Presentation Style
+
+Tone:
+
+- Professional
+- Executive-ready
+- Crisp
+- Evidence-based
+- Dashboard-oriented
+
+Formatting:
+
+- Use tables wherever useful
+- Use clear headings
+- Avoid long paragraphs
+- Avoid repeated information
+- Do not use unnecessary decorative icons
+- Keep output presentation-ready
+
+---
+
+# Final Validation Checklist
+
+Before producing the final report, verify:
+
+- All Excel sheets are analysed
+- All issues are consolidated
+- Duplicate issues are removed or flagged
+- Status values are standardised
+- Severity values are standardised
+- Categories are assigned
+- Critical and High issues are clearly highlighted
+- UI and Functional issues are separated
+- Pending and Not Verified issues are visible
+- Dashboard metrics are accurate
+- Charts or chart-ready outputs are provided
+- Go-live readiness is clearly stated
+- Action plan is prioritised`,
+  },
+  {
     id: "e2e-tests-from-url",
     title: "End-to-End Test Cases by Inspecting a Live URL",
     category: "Testing",
