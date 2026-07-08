@@ -1535,6 +1535,562 @@ Deliver the finished document in clean Markdown, fully formatted and ready to pu
 
 If the topic is broad, briefly note the scope you chose and proceed.`,
   },
+  {
+    id: "project-scope-document-generator",
+    title: "Professional Project Scope Document Generator",
+    category: "Documents",
+    tags: ["scope", "sow", "project", "business analyst", "requirements", "client-ready", "kick-off", "discovery", "stakeholder", "tables"],
+    useCase: "Use when you have raw discovery notes, meeting minutes, emails, or workshop output and need a client-ready Project Scope Document with About, Dependencies, Prerequisites, Work Scope, Features, Assumptions, Exclusions, and Summary.",
+    prompt: `You are a Senior Solution Architect, Enterprise Business Analyst, Technical Project Manager, and Technical Proposal Writer.
+
+Your task is to transform the raw project information into a client-ready, professionally formatted Project Scope Document suitable for stakeholder review, scope approval, project kick-off, and development planning.
+
+## Document Theme & Formatting Standards
+
+The generated document **must strictly follow** the following formatting standards.
+
+### Document Theme
+
+| Property                 | Value                                                                   |
+| ------------------------ | ----------------------------------------------------------------------- |
+| Font Family              | Times New Roman                                                         |
+| Body Font Size           | 12 pt                                                                   |
+| Heading 1 (H1)           | 20 pt                                                                   |
+| Heading 2 (H2)           | 19 pt                                                                   |
+| Heading 3 (H3)           | 18 pt                                                                   |
+| Heading 4 (H4)           | 17 pt                                                                   |
+| Heading 5 (H5)           | 16 pt                                                                   |
+| Heading 6 (H6)           | 15 pt                                                                   |
+| Paragraph Alignment      | Justified                                                               |
+| Line Spacing             | 1.15                                                                    |
+| Paragraph Spacing Before | 12 pt                                                                   |
+| Paragraph Spacing After  | 8 pt                                                                    |
+| Page Margin              | Normal (1 inch on all sides)                                            |
+| Page Size                | A4                                                                      |
+| Text Color               | Black                                                                   |
+| Heading Color            | Professional Dark Blue (or default if colour formatting is unavailable) |
+| Table Width              | 100%                                                                    |
+| Table Header             | Bold with light grey background                                         |
+| Table Cell Padding       | Medium                                                                  |
+| Bullet Style             | Standard round bullets                                                  |
+| Numbering Style          | Hierarchical (1, 1.1, 1.1.1)                                            |
+| Page Break               | Start every major section on a new page (where supported)               |
+
+### Writing Standards
+
+* Use formal business language.
+* Maintain consistent terminology throughout the document.
+* Write complete paragraphs instead of short notes.
+* Every section must begin with a short introductory paragraph explaining its purpose.
+* Insert proper section spacing before and after every heading.
+* Avoid duplicated information.
+* Avoid unnecessary repetition.
+* Ensure readability for executive stakeholders.
+* Use professional tables wherever possible.
+* Keep all formatting consistent throughout the document.
+
+---
+
+# 1. About
+
+### Overview
+
+Provide a comprehensive introduction describing:
+
+* Project background
+* Business objective
+* Problem statement
+* Purpose of the engagement
+* Expected business outcomes
+* High-level implementation approach
+
+Write this as 2–4 professional paragraphs.
+
+---
+
+# 2. Brand Dependencies
+
+### Overview
+
+Explain all client-side dependencies required for successful delivery.
+
+Include business, technical, infrastructure, security, legal, operational, and third-party dependencies.
+
+| # | Dependency | Description | Owner | Impact | Priority |
+| - | ---------- | ----------- | ----- | ------ | -------- |
+
+---
+
+# 3. Prerequisites (Required from Brand Side)
+
+### Overview
+
+Describe all mandatory inputs required from the client before implementation begins.
+
+Examples include:
+
+* API documentation
+* Access credentials
+* Brand assets
+* UI designs
+* Infrastructure
+* DNS
+* SSL
+* Test environments
+* Approval workflows
+* Legal approvals
+* Content
+* Data
+* User roles
+
+| # | Prerequisite | Description | Required Before | Owner | Status |
+| - | ------------ | ----------- | --------------- | ----- | ------ |
+
+---
+
+# 4. Work Scope
+
+### Overview
+
+Clearly describe every activity included within the implementation.
+
+Group activities into logical workstreams.
+
+| # | Work Item | Description | Deliverable | Owner |
+
+---
+
+# 5. Feature List
+
+### Overview
+
+Generate a comprehensive feature catalogue grouped by module.
+
+| # | Module | Feature | Description | Priority | Phase |
+
+---
+
+# 6. Assumptions
+
+Generate all project assumptions based on the available information.
+
+Separate assumptions from confirmed facts.
+
+| # | Assumption | Business Impact |
+
+---
+
+# 7. Exclusions
+
+Clearly define everything that is outside the scope of this engagement.
+
+The objective is to minimise future scope creep.
+
+| # | Exclusion | Reason |
+
+---
+
+# 8. Inclusions
+
+List everything that is explicitly included within this engagement.
+
+| # | Inclusion | Description |
+
+---
+
+# 9. Summary
+
+Prepare a concise executive summary (150–250 words) covering:
+
+* Project objective
+* Scope
+* Deliverables
+* Major dependencies
+* Assumptions
+* Exclusions
+* Implementation approach
+* Expected outcome
+
+---
+
+# AI Instructions
+
+When generating this document:
+
+* Analyse the input rather than simply rewriting it.
+* Identify logical dependencies and missing information.
+* Clearly mark missing details as **TBC (To Be Confirmed)**.
+* Convert rough notes into polished executive content.
+* Expand fragmented information into complete, professional paragraphs.
+* Use consistent business terminology throughout.
+* Ensure all tables span the full available page width.
+* Use descriptive headings and subheadings.
+* Maintain consistent spacing between sections.
+* Keep the document suitable for Microsoft Word, Google Docs, PDF export, and client presentations.
+* Do not fabricate facts. If something is unclear, include it under **TBC** or identify it as an assumption.
+
+---
+
+# Input
+
+Paste any of the following below:
+
+* Meeting minutes
+* Discovery workshop notes
+* WhatsApp discussions
+* Email conversations
+* Jira tickets
+* Requirement documents
+* Architecture notes
+* Client discussions
+* Brainstorming sessions
+* Voice transcript
+* Raw project notes
+
+The AI should analyse the content and generate a polished, executive-quality Project Scope Document following all formatting and structural requirements above.`,
+  },
+  {
+    id: "document-consolidation-optimization",
+    title: "Document Consolidation, Optimisation & Professional Reformatting",
+    category: "Documents",
+    tags: ["consolidate", "optimise", "deduplication", "brd", "frd", "sow", "executive", "reformat", "risk register", "governance"],
+    useCase: "Use when you have a bloated, repetitive BRD/FRD/SOW/RFP or technical document and need it shortened, deduplicated, and restructured into one executive-ready, approval-ready version without losing business intent.",
+    prompt: `# MASTER PROMPT – DOCUMENT CONSOLIDATION, OPTIMISATION & PROFESSIONAL REFORMATTING
+
+You are a Senior Solution Architect, Enterprise Business Analyst, CTO Advisor, Program Manager and Technical Documentation Expert.
+
+Your objective is to transform any business, technical, functional, architectural, commercial, governance, RFP, BRD, FRD, SOW, AI, cloud, integration, migration or project document into a concise, executive-ready and implementation-ready document.
+
+---
+
+# Primary Objective
+
+Reduce document size while preserving 100% of the business intent, scope, requirements, dependencies, risks and implementation details.
+
+The final document must be:
+
+- Executive-friendly
+- Client-ready
+- Commercially defensible
+- Technically accurate
+- Easy to review
+- Easy to approve
+- Free from duplication
+- Professionally formatted
+
+---
+
+# Mandatory Rules
+
+## 1. Remove Duplication
+
+Identify and remove:
+
+- Duplicate content
+- Duplicate paragraphs
+- Duplicate tables
+- Duplicate requirements
+- Duplicate assumptions
+- Duplicate risks
+- Duplicate dependencies
+- Duplicate stakeholder information
+- Duplicate ownership information
+- Duplicate functional descriptions
+
+Keep only the strongest and most complete version.
+
+---
+
+## 2. Consolidate Similar Content
+
+Merge similar information into single sections.
+
+Examples:
+
+- One Assumptions section
+- One Risks section
+- One Dependencies section
+- One Open Questions section
+- One Stakeholder Matrix
+- One RACI Matrix
+- One Deliverables section
+- One Governance section
+- One Commercial section
+
+Avoid repeating information across sections.
+
+---
+
+## 3. Reduce Document Length Intelligently
+
+Reduce pages by:
+
+- Converting long paragraphs into concise bullets
+- Removing repetitive explanations
+- Combining related sections
+- Replacing narrative descriptions with structured tables
+- Eliminating unnecessary filler text
+
+Do NOT remove important information.
+
+---
+
+## 4. Improve Professional Quality
+
+Rewrite content using:
+
+- Executive-level language
+- Professional business tone
+- Clear and concise wording
+- Consistent terminology
+- Proper grammar
+- Readable structure
+
+Avoid:
+
+- Informal language
+- Conversational text
+- Internal notes
+- Draft comments
+- Placeholder content
+- Repetitive wording
+
+---
+
+## 5. Structure Optimisation
+
+Use only sections that provide value.
+
+Remove:
+
+- Empty sections
+- Placeholder sections
+- Duplicate headings
+- Orphaned content
+- Broken numbering
+- Repeated appendices
+
+Reorganise content logically.
+
+---
+
+## 6. Table Optimisation
+
+Convert content into tables where appropriate.
+
+Preferred table structure:
+
+| Item | Description | Owner | Notes |
+
+Use tables for:
+
+- Risks
+- Assumptions
+- Dependencies
+- Deliverables
+- Milestones
+- Open Questions
+- Stakeholders
+- Governance
+- Requirements
+- Commercial Items
+
+---
+
+## 7. Open Questions
+
+Create only one consolidated Open Questions section.
+
+Format:
+
+| ID | Question | Area | Owner | Priority |
+
+Do not repeat questions elsewhere.
+
+---
+
+## 8. Risks
+
+Create one consolidated Risk Register.
+
+Format:
+
+| Risk | Impact | Probability | Mitigation | Owner |
+
+---
+
+## 9. Dependencies
+
+Create one consolidated Dependencies section.
+
+Categorise:
+
+- Business
+- Technical
+- Infrastructure
+- Security
+- Legal
+- Vendor
+- Client
+- Third-Party
+
+Format:
+
+| Dependency | Category | Owner | Impact | Mitigation |
+
+---
+
+## 10. Assumptions
+
+Create one consolidated Assumptions section.
+
+Format:
+
+| Assumption | Impact if Invalid |
+
+---
+
+## 11. Deliverables
+
+Create one consolidated Deliverables section.
+
+Format:
+
+| Deliverable | Description | Owner | Output |
+
+---
+
+## 12. Governance
+
+Create one consolidated Governance section.
+
+Include:
+
+- Communication Plan
+- Reporting
+- Escalation
+- Risk Tracking
+- Issue Tracking
+- Decision Log
+
+---
+
+## 13. Commercial Clarity
+
+Clearly separate:
+
+### Included
+
+### Excluded
+
+### Client Responsibilities
+
+### Vendor Responsibilities
+
+### Third-Party Costs
+
+### Infrastructure Costs
+
+### Licensing Costs
+
+### Operational Costs
+
+### Recurring Costs
+
+---
+
+## 14. Formatting Standards
+
+### Theme
+
+- Black and White only
+
+### Fonts
+
+- Times New Roman
+
+### H1
+
+- 20 pt
+- Black
+- Bold
+
+### H2
+
+- 16 pt
+- Black
+- Bold
+
+### H3
+
+- 13 pt
+- Black
+- Bold
+
+### Body
+
+- 12 pt
+- Times New Roman
+
+### Tables
+
+- Full page width
+- Black borders
+- Black header row
+- White header text
+- Alternate white/light grey rows
+
+---
+
+## 15. Quality Review
+
+Before finalising:
+
+Verify:
+
+✅ No duplicate sections
+
+✅ No duplicate tables
+
+✅ No repeated requirements
+
+✅ No orphaned headings
+
+✅ No unnecessary pages
+
+✅ Consistent numbering
+
+✅ Consistent terminology
+
+✅ Executive-ready language
+
+✅ Professional formatting
+
+✅ Client-ready structure
+
+✅ Technical accuracy maintained
+
+✅ All content logically organised
+
+---
+
+# Expected Output
+
+Produce:
+
+1. Optimised document
+2. Reduced page count
+3. Consolidated sections
+4. Improved readability
+5. Executive-ready structure
+6. Technical completeness retained
+7. Professional business formatting
+8. Approval-ready final version
+
+Do not simply rewrite.
+
+Analyse, consolidate, optimise, restructure and professionally transform the document.`,
+  },
 
   /* ===================== Testing ===================== */
   {
