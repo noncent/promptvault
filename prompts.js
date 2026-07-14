@@ -2234,6 +2234,128 @@ document ready to share with leadership, clients,
 architecture teams or delivery teams.
 Apply all formatting standards above without exception.`,
   },
+  {
+    id: "active-document-structure-transform",
+    title: "Active Document Structure & Business Format Transform",
+    category: "Documents",
+    tags: ["document", "structure", "inclusions", "exclusions", "assumptions", "risks", "dependencies", "validation", "grid table", "business"],
+    useCase: "Use on an open or selected document to restructure it into a professional business format with inclusions, exclusions, assumptions, risks, dependencies, impact, and validation questions — Grid Table 2, no fabricated details.",
+    prompt: `# OBJECTIVE
+
+-- Update the provided/selected/open document.
+
+Analyse the active document and transform it into a well-structured, professionally formatted document with clear sections, defined responsibilities, assumptions, exclusions, risks, and validation points where applicable.
+
+
+# CONTEXT
+
+The active document may contain unstructured, partially structured, or mixed content.
+
+You must:
+• Identify the document purpose  
+• Standardise structure  
+• Improve clarity and readability  
+• Convert raw content into a business-ready format  
+
+
+# REQUIRED OUTPUT STRUCTURE
+
+Organise the document into clearly defined sections.
+
+Where applicable, include:
+
+1. Overview  
+Brief explanation of the section or topic  
+
+2. Inclusions  
+Define what is explicitly included  
+
+3. Exclusions  
+Define what is explicitly not included  
+
+4. Assumptions  
+List confirmed or required assumptions  
+
+5. Risks  
+Identify potential risks (business, delivery, technical)  
+
+6. Dependencies  
+Highlight dependencies (teams, systems, inputs, timelines)  
+
+7. Impact  
+Explain impact on delivery, business outcomes, or quality  
+
+8. Validation Questions  
+Convert unclear or missing details into direct business questions  
+
+
+# DOCUMENT STRUCTURING RULES
+
+• Reorganise content into logical sections  
+• Group related information together  
+• Remove duplication  
+• Improve flow and readability  
+• Maintain consistency across sections  
+• Ensure clear separation between:
+  - Confirmed information  
+  - Assumptions  
+  - Open items  
+
+
+# TABLE AND FORMATTING RULES
+
+MANDATORY: Use 'Grid Table 2' for ALL tables
+
+• All tables must be full width (100%)  
+• Apply consistent column structure  
+• Use clear, business-friendly column names  
+• Apply alternating row formatting  
+
+
+# WRITING STYLE
+
+• Professional and business-friendly  
+• Clear and direct  
+• Concise and actionable  
+• Use plain English  
+
+Avoid:
+• Jargon  
+• Repetition  
+• Long paragraphs  
+• Passive voice  
+• Unnecessary technical complexity  
+
+
+# CONTENT HANDLING RULES
+
+• Do not remove important information  
+• Do not fabricate missing details  
+• Convert ambiguity into validation questions  
+• Preserve meaning while improving clarity  
+• Standardise terminology across the document  
+
+
+# ADDITIONAL REQUIREMENTS
+
+• Clearly distinguish:
+  - Scope vs non-scope  
+  - Confirmed vs unconfirmed  
+  - Ownership where applicable  
+
+• If information is incomplete:
+  - Do NOT assume  
+  - Capture gaps under Validation Questions  
+
+
+# OUTPUT INSTRUCTIONS
+
+• Use structured sections and tables (Grid Table 2)  
+• Ensure executive-level readability  
+• Maintain consistency throughout  
+• Avoid redundancy  
+• Do NOT include explanations or commentary`,
+  },
 
   /* ===================== Testing ===================== */
   {
